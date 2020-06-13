@@ -1,0 +1,213 @@
+<!-- 
+	Name: 
+	Date: February 2020
+	Purpose: Form Practice
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Midterm Practice</title>
+    <h1 style="color: black; padding: 5px;">IWD Restaurant</h1>
+</head>
+
+<body onload="displayOptionPrices();" style="background-color: #adfff1; border: 2px solid black; padding: 5px;">
+    <div style="background-color: #ffbfbf; border: 2px solid black; padding: 5px;">
+        <!-- Movie Selections -->
+
+        <table>
+            <tr>
+                <td>
+                    <!-- Option Selection 1 -->
+                    <div style="background-color: white; border: 2px solid #3a302a; padding: 5px;" onmouseover="this.style.backgroundColor = '#fdff91';" onmouseout="this.style.backgroundColor = 'white';">
+                        <h3 id="hOption1">Option 1 - Soup</h3>
+                        <image src="image1.png" width="250" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+                        <br/>
+                        <p id="buttons">Qty: <input readonly type="text" size="3" value="0" id="option1Quantity" class="btn" /> </p>
+                        <input type="button" value="Add to Order" onclick="buttonClick1();" />
+
+                    </div>
+                </td>
+                <td>
+                    <!-- Option Selection 2 -->
+                    <div style="background-color: white; border: 2px solid #3a302a; padding: 5px;" onmouseover="this.style.backgroundColor = '#fdff91';" onmouseout="this.style.backgroundColor = 'white';">
+                        <h3 id="hOption2">Option 2 - Pizza</h3>
+                        <image src="image2.png" width="250" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+                        <br/>
+                        <p>Qty: <input readonly type="text" size="3" value="0" id="option2Quantity" /> </p>
+                        <input type="button" value="Add to Order" onclick="buttonClick2()" />
+
+                    </div>
+                </td>
+                <td>
+                    <!-- Option Selection 3 -->
+                    <div style="background-color: white; border: 2px solid #3a302a; padding: 5px;" onmouseover="this.style.backgroundColor = '#fdff91';" onmouseout="this.style.backgroundColor = 'white';">
+                        <h3 id="hOption3">Option 3 - Burger</h3>
+                        <image src="image3.png" width="250" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+                        <br/>
+                        <p>Qty: <input readonly type="text" size="3" value="0" id="option3Quantity" /> </p>
+                        <input type="button" value="Add to Order" onclick="buttonClick3()" />
+
+                    </div>
+                </td>
+                <td>
+                    <!-- Option Selection 4 -->
+                    <div style="background-color: white; border: 2px solid #3a302a; padding: 5px;" onmouseover="this.style.backgroundColor = '#fdff91';" onmouseout="this.style.backgroundColor = 'white';">
+                        <h3 id="hOption4">Option 4 - Salad</h3>
+                        <image src="image4.png" width="250" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+                        <br/>
+                        <p>Qty: <input readonly type="text" size="3" value="0" id="option4Quantity" /> </p>
+                        <input type="button" value="Add to Order" onclick="buttonClick4()" />
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Buttons -->
+        <input type="button" value="Confirm Order" style="padding: 10px;" onclick="calculating()" />
+        <input type="button" value="Reset Order" style="padding: 10px;" id="reset" onclick=" myResetFunction()" />
+
+    </div>
+
+
+    <!-- Output Area -->
+    <p style="color: black; font-size: 20px; font-weight: bold; padding: 5px;">
+        Order History:
+    </p>
+    <div style="color: black; font-weight: bold; padding: 5px;" id="theOutputArea">
+
+    </div>
+
+    <!-- Javascript -->
+    <script>
+        //.textContent changes the text of the text in html super handy for manipulation...
+        // Your code here...  
+        //displayOptionPrices();      
+        var orders = {
+            1: {
+                name: "Soup",
+                price: 9.99,
+                amount: 0
+            },
+            2: {
+                name: "Pizza",
+                price: 15.99,
+                amount: 0
+            },
+            3: {
+                name: "Burger Meal",
+                price: 17.99,
+                amount: 0
+            },
+            4: {
+                name: "Salad",
+                price: 12.99,
+                amount: 0
+            }
+        }
+        console.log(orders);
+
+        function displayOptionPrices() {
+            var option1 = document.getElementById("hOption1").textContent = orders[1].name + " costs " + orders[1].price + " $";
+            var option2 = document.getElementById("hOption2").textContent = orders[2].name + " costs " + orders[2].price + " $";
+            var option3 = document.getElementById("hOption3").textContent = orders[3].name + " costs " + orders[3].price + " $";
+            var option4 = document.getElementById("hOption4").textContent = orders[4].name + " costs " + orders[4].price + " $";
+        }
+
+
+
+        // Quantity of the meal and all the counting variables
+        var orderingNumber = 0;
+        const HST_TAX = 0.13;
+        var taxCalculation = 0;
+        var totalAmount = 0;
+
+        var order = " ";
+
+
+
+        // Functions in order to inrecemnt the quantity number 
+        var i = 0;
+
+        function buttonClick1() {
+            document.getElementById('option1Quantity').value = ++i;
+            orders[1].amount++;
+        }
+
+        var a = 0;
+
+        function buttonClick2() {
+            document.getElementById('option2Quantity').value = ++a;
+            orders[2].amount++;
+        }
+
+
+        var b = 0;
+
+        function buttonClick3() {
+            document.getElementById('option3Quantity').value = ++b;
+            orders[3].amount++;
+        }
+
+        var c = 0;
+
+        function buttonClick4() {
+            document.getElementById('option4Quantity').value = ++c;
+            orders[4].amount++;
+        }
+
+
+        /// Reset button onclick event so it resets the quantity of the  items added to Order
+
+        function myResetFunction() {
+            document.querySelectorAll("input")[0]
+                .value = 0;
+            document.querySelectorAll("input")[2]
+                .value = 0;
+            document.querySelectorAll("input")[4]
+                .value = 0;
+            document.querySelectorAll("input")[6]
+                .value = 0;
+
+            document.getElementById("hOption1").textContent = orders[1].price = 0;
+
+
+        }
+
+
+
+
+
+        //Function to calculate the total amount and the total tax amount or sum
+
+        function calculating() {
+            var totalOrders = Object.keys(orders).reduce((t, c) => t + (orders[c].amount * orders[c].price), 0);
+
+            var taxCalculation = totalOrders * HST_TAX;
+            taxCalculation = Math.round(taxCalculation);
+
+
+
+            //calculate the TotalAmount through adding tax and subTotal amount and rounding the number in the end
+            var totalAmount = totalOrders + taxCalculation;
+            totalAmount = Math.round(totalAmount);
+
+
+            // var OutputAmount = Math.trunc(totalAmount);
+
+
+
+            var displayMessage2 = ("Tax: " + taxCalculation + "$" + "<br>" + "Total Bill: " + totalAmount + "$" + "<br>" + "<ul>");
+
+            for (let key of Object.keys(orders)) {
+                displayMessage2 += "<li>" + orders[key].amount + " " + orders[key].name + " | " + orders[key].price + " | " + orders[key].amount * orders[key].price + "</li>";
+            }
+            displayMessage2 += "</ul>";
+            document.getElementById("theOutputArea").innerHTML = displayMessage2;
+
+        }
+    </script>
+</body>
+
+</html>
